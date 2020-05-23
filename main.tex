@@ -102,7 +102,7 @@ As técnicas de Aprendizado Profundo em inglês Deep Learning (DL) estão ligado
 
 \section{PRÁTICA 01}
 \label{pratica01}
-Nesta prática busca-se selecionar as bases de imagens e os descritores para extração de características.
+Nesta prática busca-se selecionar as bases de imagens, os descritores para extração de características e os classificadores.
 
 \subsection{Base de dados}
 Foi selecionada a base de imagens CKPLUS. A qual pode ser encontrada em: https://www.kaggle.com/shawon10/ckplus. Contém 981 imagens de rostos em escalas de cinza com as expressões de raiva, nojo, desprezo, medo, felicidade, tristeza, surpresa. Para este trabalho foram selecionadas apenas as expressões raiva, medo, felicidade, tristeza e surpresa.
@@ -110,25 +110,30 @@ Foi selecionada a base de imagens CKPLUS. A qual pode ser encontrada em: https:/
 A segunda base de imagens selecionada foi a Yale Face Database. A qual pode ser encontrada em: http://vision.ucsd.edu/content/yale-face-database. Contém 165 imagens em tons de cinza de rostos de 15 indivíduos fazendo 6 expressões faciais, normal, tristeza, sonolência, surpresa e piscando.
 
 \subsection{Extração de características}
-Para extração de características foi utilizado o Local Binary Patterns (LBP) e o Gabor. Sendo que o primeiro extrai 256 caracterísitcas de textura e o último 60. Os arquivos finais podem ser encontrados em: https://drive.google.com/drive/folders/1ZP-CkuoP2mQggsR2sd9QGcbks1hrt68u?usp=sharing.
+Para extração de características foi utilizado os descritores Local Binary Patterns (LBP) e o Gabor. Sendo que o primeiro extrai 256 caracterísitcas de textura é não paramétrico, possui baixo custo de processamento \cite{rajan:19}. Seu funcionamento consiste em dividir a imagem em sub-blocos sendo que para cada sub-bloco é calculado o histograma, o vetor de características é formado com a concatenação desses histogramas \cite{rajan:19}. O descritor Gabor extrai 60 características de textura como linhas e contornos. Os arquivos finais podem ser encontrados em: https://drive.google.com/drive/folders/1ZP-CkuoP2mQggsR2sd9QGcbks1hrt68u?usp=sharing.
+
+\subsection{Seleção dos classificadores}
+Os classificadores utilizados nas práticas seguintes foram selecionados com base em \cite{rajan:19}. Os classificadores são Regressão Logística (Logistic Regression - LR), K vizinhos mais próximos (k-nearest neighbors - KNN), Máquina de Vetores Suporte (Support Vectors Machine - SVM), rede perceptron multicamadas (Multi-layer Perceptron - MLP).
 
 \section{PRÁTICA 02}
 \label{pratica02}
-Nesta prática busca-se comparar diferentes classificadores com diferentes métricas a partir dos arquivos gerados na Seção~\ref{pratica01}.
+Nesta prática busca-se comparar a acurácia obtida por diferentes classificadores a partir dos arquivos gerados na Seção~\ref{pratica01}.
 
-\subsection{Seleção da técnica de normalização}
-A partir dos arquivos gerados com os descritores foram alterandas as técnicas de normalizações para verificar qual delas atinge melhor resultado para acurácia. Para a base de dados CKPLUS com o descritor LBP as diferenças são mínimas como podem ser vistas na Figura~\ref{fig:bar_norm_all}. Os classificadores utilizados foram: GaussianNB, Logistic Regression, Decision Tree K-NN, LDA, SVM, Random Forest, Neural Net.
+\subsection{Descritor LBP}
+\subsubsection{Seleção da técnica de normalização}
+A partir dos arquivos gerados com os descritores foram alterandas as técnicas de normalizações para verificar qual delas atinge melhor resultado para acurácia. Para a base de dados CKPLUS com o descritor LBP as diferenças são mínimas como podem ser vistas na Figura~\ref{fig:bar_norm_all_lbp}. Os classificadores utilizados foram: LR, KNN, SVM, MLP.
 
 \begin{figure}[!htbp]
 	\centering
-	\includegraphics[width=1.0\linewidth,clip=true,trim=0cm 0cm 0cm 0cm, keepaspectratio=true]{bar_norm_all.png}
+	\includegraphics[width=1.0\linewidth,clip=true,trim=0cm 0cm 0cm 0cm, keepaspectratio=true]{bar_norm_all_lbp.png}
 	\caption{Comparação de técnicas de normalização com descritor LBP.}
-	\label{fig:bar_norm_all}
+	\label{fig:bar_norm_all_lbp}
 \end{figure}
 
-Os classificadores Neural Net, SVM obtiveram os melhores resultados, 97\% de acurácia. Os piores resultados foram obtidos pelos classificadores Decision Tree 61\% e GaussianNB 80\%.
+O classificador MLP com a normalização Standard foi a que obteve o melhor resultado, 97\% de acurácia. O pior resultado foi obtido pelo classificador KNN com a normalização Max Absolute, 77\%.
 
-Para o descritor Gabor as diferenças entre os resultados obtidos foram altas, contudo nenhum dos classificadores obtiveram 50\% de acurácia. A técnica de normalização Min-Max que consiste em transformar cada característica com valor mínimo em 0 e os valores máximos em 1, sendo que o restando é tranformado em um valor decima entre 0 e 1, obteve a melhora acurácia. Os resultados podem ser vistos na Figura~\ref{fig:bar_norm_all_gabor} Foram mantidos os classificadores utilizados no último experimento.
+\subsection{Descritor Gabor}
+Para o descritor Gabor as diferenças entre os resultados obtidos foi alta para o classificador KNN, contudo nenhum dos classificadores obtiveram 50\% de acurácia. A técnica de normalização Min-Max que consiste em transformar cada característica com valor mínimo em 0 e os valores máximos em 1, sendo que o restando é tranformado em um valor decima entre 0 e 1, obteve a melhor acurácia com o classificador KNN, 41\%. O pior desempenho foi obtido pelo classificador KNN com a normalização Standard, 21\%. Os resultados podem ser vistos na Figura~\ref{fig:bar_norm_all_gabor} Foram mantidos os classificadores utilizados no último experimento.
 
 \begin{figure}[!htbp]
 	\centering
@@ -137,7 +142,7 @@ Para o descritor Gabor as diferenças entre os resultados obtidos foram altas, c
 	\label{fig:bar_norm_all_gabor}
 \end{figure}
 
-\subsubsection{Desenvolvimento} ATUALIZAR
+\subsubsection{Desenvolvimento} Prática 02 - ckplus  - LBP - all - norm; Prática 02 - ckplus  - Gabor - all - norm
 \subsubsection{Exibição e Execução} ATUALIZAR
 
 \section{PRÁTICA 03}
@@ -176,9 +181,6 @@ Com a redução de dimensionalidade obtida foi utilizado o classificador k-means
 	\label{fig:scatter_k9_lbp}
 \end{figure}
 
-\subsubsection{Desenvolvimento} ATUALIZAR
-\subsubsection{Exibição e Execução} ATUALIZAR
-
 \subsection{Descritor Gabor}
 \subsubsection{Redução de dimensionalidade}
 Foi aplicada a técnica PCA para as características extraídas com o descritor Gabor. Primeiramente os dados  foram normalizados com a técnica MinMax, melhor resultado obtido no experimento anterior. Foi possível reduzir as características de 60 para duas retendo 100\% de variância. Ver  Figura~\ref{fig:points_pca_gabor}.
@@ -209,7 +211,7 @@ Na sequência foi utilizado o classificador k-means agrupando as amostras de 2 a
 
 Nota-se que o agrupamento plotado na Figura~\ref{fig:scatter_k8_gabor} possui fronteiras mais definidas do que na Figura~\ref{fig:scatter_k9_lbp}.
 
-\subsubsection{Desenvolvimento} ATUALIZAR
+\subsubsection{Desenvolvimento} Prática 03 - ckplus - LBP - pca - kmeans; Prática 03 - ckplus - Gabor - pca - kmeans
 \subsubsection{Exibição e Execução} ATUALIZAR
 
 \section{PRÁTICA 04}
@@ -218,16 +220,16 @@ Nesta prática busca-se comparar os resultados de aprendizado supervisionado rea
 
 \subsection{Descritor LBP}
 \subsubsection{Seleção dos parâmetros para o método Label Propagation}
-O método Label Propagation pode ser utilizado com o kernel de k vizinhos mais próximos (K-Nearest Neighbors - KNN) e funçao de base radial (Radial Basis Function - RBF). Para o  primeiro caso deve-se definir o número máximo de iterações o número de vizinhos e outros. Para o RBF deve-se definir o valor $\gamma$ (gama), a quantidade máxima de iterações e outros.
+O método Label Propagation pode ser utilizado com o kernel de k vizinhos mais próximos (K-Nearest Neighbors - KNN) e funçao de base radial (Radial Basis Function - RBF). Para o  primeiro caso deve-se definir o número máximo de iterações o número de vizinhos e outros. Para o RBF deve-se definir o valor gamma, a quantidade máxima de iterações e outros.
 
-Para este experimento variou-se o kernel entre KNN e RBF, o valor gama em 20, 25, 30, a quantidade máxima de iterações em 300, 500, 1000 e o número de vizinhos em 7, 14, 21 e 28. Para cada combinação foi feita a validação cruzada em 5 partições. O critério para definição dos melhores parâmetros foi a $\mu$ (média) da acurácia. Os melhores parâmetros para o kernel KNN e RBF estão descritos na Tabela~\ref{tab:meida_acuracia_lp_lbp}. Para todos os classificadores o desempenho da acurácia apresentou queda quando comparado as técnincas supervisionadas. Contudo existe a redução de 600 imagens rotuladas para 360. A comparação com os resultados das práticas supervisionadas podem ser vistas na Figura~\ref{fig:super_vs_semi_lbp}.
+Para este experimento variou-se o kernel entre KNN e RBF, o valor gama em 20, 25, 30, a quantidade máxima de iterações em 300, 500, 1000 e o número de vizinhos em 7, 14, 21 e 28. Para cada combinação foi feita a validação cruzada em 5 partições. O critério para definição dos melhores parâmetros foi a média da acurácia. Os melhores parâmetros para o kernel KNN e RBF estão descritos na Tabela~\ref{tab:meida_acuracia_lp_lbp}. Para todos os classificadores o desempenho da acurácia apresentou queda quando comparado as técnincas supervisionadas. Contudo existe a redução de 600 imagens rotuladas para 360. A comparação com os resultados das práticas supervisionadas podem ser vistas na Figura~\ref{fig:super_vs_semi_lbp}.
 
 
 \begin{table}[!htbp]
     \caption{Média e desvio padrão para acurácia}
     \begin{center}
         \begin{tabular}{lllllll}
-        	Kernel & It. Máx. & N. Vizinhos & $\gamma$ & $\mu$ & $\sigma$ & Posição \\
+        	Kernel & Iteração & Vizinhos & Gamma &  Média & Desv. Pad. & Pos. \\
         	\hline
         	KNN    & 300             & 7                  & n/a  & 0.39       & 0.021               & 1       \\
         	\hline
@@ -244,9 +246,13 @@ Para este experimento variou-se o kernel entre KNN e RBF, o valor gama em 20, 25
 	\label{fig:super_vs_semi_lbp}
 \end{figure}
 
-\subsubsection{Desenvolvimento} Prática 04 - ckpuls - LBP - gridsearch - both;
-Prática 04 - ckpuls - LBP - supervisionado vs  semi-supervisionado
+\subsubsection{Desenvolvimento} Prática 02 - ckplus  - LBP - standard; Prática 04 - ckpuls - LBP - gridsearch - both; Prática 04 - ckpuls - LBP - supervisionado vs  semi-supervisionado
 \subsubsection{Exibição e Execução} ATUALIZAR
+
+\section{PRÁTICA 05}
+\label{pratica05}
+
+Nesta prática busca-se
 \section{CONCLUSÃO E TRABALHOS FUTUROS}
 
 Neste trabalho foi realizado o reconhecimento de expressões faciais com aprendizado de máquina. Foram comparadas com base na acurácia o melhor desempenho para os descritores LBP e Gabor. O primeiro foi que obteve melhor resultado. Foram comparadas diferentes técnicas de normalização sendo que os testes realizados com o descritor Gabor foi o que apresentou maior sensibilidade para este tipo de alteração. Além disto foi aplicada a técnica de redução de dimensionalidade com o PCA, novamente os resultados baseados no descritor Gabor foi o mais afetado.

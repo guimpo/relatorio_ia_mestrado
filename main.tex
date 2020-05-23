@@ -107,7 +107,7 @@ Foi selecionada a base de imagens CKPLUS. A qual pode ser encontrada em: https:/
 A segunda base de imagens selecionada foi a Yale Face Database. A qual pode ser encontrada em: http://vision.ucsd.edu/content/yale-face-database. Contém 165 imagens em tons de cinza de rostos de 15 indivíduos fazendo 6 expressões faciais, normal, tristeza, sonolência, surpresa e piscando.
 
 \subsection{Extração de características}
-Para extração de características foi utilizado o Local Binary Patterns (LBP) e o Gabor. Sendo que o primeiro extrai 256 caracterísitcas de textura e o último 60. Os arquivos finais podem ser encontrados em: https://drive.google.com/drive/folders/1ZP-CkuoP2mQggsR2sd9QGcbks1hrt68u?usp=sharing.
+Para extração de características foi utilizado os descritores Local Binary Patterns (LBP) e o Gabor. Sendo que o primeiro extrai 256 caracterísitcas de textura é não paramétrico, possui baixo custo de processamento \cite{rajan:19}. Seu funcionamento consiste em dividir a imagem em sub-blocos sendo que para cada sub-bloco é calculado o histograma, o vetor de características é formado com a concatenação desses histogramas \cite{rajan:19}. O descritor Gabor extrai 60 características de textura como linhas e contornos. Os arquivos finais podem ser encontrados em: https://drive.google.com/drive/folders/1ZP-CkuoP2mQggsR2sd9QGcbks1hrt68u?usp=sharing.
 
 \subsection{Seleção dos classificadores}
 Os classificadores utilizados nas práticas seguintes foram selecionados com base em \cite{rajan:19}. Os classificadores são Regressão Logística (Logistic Regression - LR), K vizinhos mais próximos (k-nearest neighbors - KNN), Máquina de Vetores Suporte (Support Vectors Machine - SVM), rede perceptron multicamadas (Multi-layer Perceptron - MLP).
@@ -217,16 +217,16 @@ Nesta prática busca-se comparar os resultados de aprendizado supervisionado rea
 
 \subsection{Descritor LBP}
 \subsubsection{Seleção dos parâmetros para o método Label Propagation}
-O método Label Propagation pode ser utilizado com o kernel de k vizinhos mais próximos (K-Nearest Neighbors - KNN) e funçao de base radial (Radial Basis Function - RBF). Para o  primeiro caso deve-se definir o número máximo de iterações o número de vizinhos e outros. Para o RBF deve-se definir o valor $\gamma$ (gama), a quantidade máxima de iterações e outros.
+O método Label Propagation pode ser utilizado com o kernel de k vizinhos mais próximos (K-Nearest Neighbors - KNN) e funçao de base radial (Radial Basis Function - RBF). Para o  primeiro caso deve-se definir o número máximo de iterações o número de vizinhos e outros. Para o RBF deve-se definir o valor gamma, a quantidade máxima de iterações e outros.
 
-Para este experimento variou-se o kernel entre KNN e RBF, o valor gama em 20, 25, 30, a quantidade máxima de iterações em 300, 500, 1000 e o número de vizinhos em 7, 14, 21 e 28. Para cada combinação foi feita a validação cruzada em 5 partições. O critério para definição dos melhores parâmetros foi a $\mu$ (média) da acurácia. Os melhores parâmetros para o kernel KNN e RBF estão descritos na Tabela~\ref{tab:meida_acuracia_lp_lbp}. Para todos os classificadores o desempenho da acurácia apresentou queda quando comparado as técnincas supervisionadas. Contudo existe a redução de 600 imagens rotuladas para 360. A comparação com os resultados das práticas supervisionadas podem ser vistas na Figura~\ref{fig:super_vs_semi_lbp}.
+Para este experimento variou-se o kernel entre KNN e RBF, o valor gama em 20, 25, 30, a quantidade máxima de iterações em 300, 500, 1000 e o número de vizinhos em 7, 14, 21 e 28. Para cada combinação foi feita a validação cruzada em 5 partições. O critério para definição dos melhores parâmetros foi a média da acurácia. Os melhores parâmetros para o kernel KNN e RBF estão descritos na Tabela~\ref{tab:meida_acuracia_lp_lbp}. Para todos os classificadores o desempenho da acurácia apresentou queda quando comparado as técnincas supervisionadas. Contudo existe a redução de 600 imagens rotuladas para 360. A comparação com os resultados das práticas supervisionadas podem ser vistas na Figura~\ref{fig:super_vs_semi_lbp}.
 
 
 \begin{table}[!htbp]
     \caption{Média e desvio padrão para acurácia}
     \begin{center}
         \begin{tabular}{lllllll}
-        	Kernel & It. Máx. & N. Vizinhos & $\gamma$ & $\mu$ & $\sigma$ & Posição \\
+        	Kernel & Iteração & Vizinhos & Gamma &  Média & Desv. Pad. & Pos. \\
         	\hline
         	KNN    & 300             & 7                  & n/a  & 0.39       & 0.021               & 1       \\
         	\hline
@@ -254,7 +254,7 @@ Nesta prática busca-se
 
 Neste trabalho foi realizado o reconhecimento de expressões faciais com aprendizado de máquina. Foram comparadas com base na acurácia o melhor desempenho para os descritores LBP e Gabor. O primeiro foi que obteve melhor resultado. Foram comparadas diferentes técnicas de normalização sendo que os testes realizados com o descritor Gabor foi o que apresentou maior sensibilidade para este tipo de alteração. Além disto foi aplicada a técnica de redução de dimensionalidade com o PCA, novamente os resultados baseados no descritor Gabor foi o mais afetado.
 
-%\bibliography{referencias}
+\bibliography{referencias}
 \bibliographystyle{plain}
 
 \end{document}

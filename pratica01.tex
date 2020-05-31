@@ -1,0 +1,12 @@
+Nesta prática busca-se selecionar as bases de imagens, os descritores para extração de características e os classificadores.
+
+\subsection{Base de dados}
+Foi selecionada a base de imagens CKPLUS. A qual pode ser encontrada em: https://www.kaggle.com/shawon10/ckplus. Contém 981 imagens de rostos em escalas de cinza com as expressões de raiva, nojo, desprezo, medo, felicidade, tristeza, surpresa. Para este trabalho foram selecionadas apenas as expressões raiva, medo, felicidade, tristeza e surpresa.
+
+A segunda base de imagens selecionada foi a Yale Face Database. A qual pode ser encontrada em: http://vision.ucsd.edu/content/yale-face-database. Contém 165 imagens em tons de cinza de rostos de 15 indivíduos fazendo 6 expressões faciais, normal, tristeza, sonolência, surpresa e piscando.
+
+\subsection{Extração de características}
+Para extração de características foi utilizado os descritores Local Binary Patterns (LBP) e o Gabor. Sendo que o primeiro extrai 256 caracterísitcas de textura é não paramétrico, possui baixo custo de processamento \cite{rajan:19}. Seu funcionamento consiste em dividir a imagem em sub-blocos sendo que para cada sub-bloco é calculado o histograma, o vetor de características é formado com a concatenação desses histogramas \cite{rajan:19}. O descritor Gabor extrai 60 características de textura como linhas e contornos. Os arquivos finais podem ser encontrados em: https://drive.google.com/drive/folders/1ZP-CkuoP2mQggsR2sd9QGcbks1hrt68u?usp=sharing.
+
+\subsection{Seleção dos classificadores}
+Os classificadores utilizados nas práticas seguintes foram selecionados com base em \cite{rajan:19}. Os classificadores são Regressão Logística (Logistic Regression - LR), K vizinhos mais próximos (k-nearest neighbors - KNN), Máquina de Vetores Suporte (Support Vectors Machine - SVM), rede perceptron multicamadas (Multi-layer Perceptron - MLP).
